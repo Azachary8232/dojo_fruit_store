@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
+from datetime import datetime
 app = Flask(__name__)
 app.secret_key = "skittles"  
 
@@ -13,9 +14,11 @@ def checkout():
     session['raspberry_count'] = request.form['raspberry']
     session['apple_count'] = request.form['apple']
     session['first_name'] = request.form['first_name']
-    session['last_zachary'] = request.form['last_name']
+    session['last_name'] = request.form['last_name']
     session['student_id'] = request.form['student_id']
     session['count'] = int(session['strawberry_count']) + int(session['blackberry_count']) + int(session['raspberry_count']) + int(session['apple_count'])
+    session['date'] = datetime.now()
+    print("Charging", session['first_name'], session['last_name'], "for", session['count'], "fruits")
     return render_template("checkout.html")
 
 @app.route('/fruits')         
